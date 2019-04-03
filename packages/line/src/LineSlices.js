@@ -19,23 +19,32 @@ const LineSlices = ({
     theme,
     tooltip,
     tooltipFormat,
-}) => (
-    <g>
-        {slices.map(slice => (
-            <LineSlicesItem
-                key={slice.id}
-                slice={slice}
-                height={height}
-                points={slices.length}
-                showTooltip={showTooltip}
-                hideTooltip={hideTooltip}
-                theme={theme}
-                tooltipFormat={tooltipFormat}
-                tooltip={tooltip}
-            />
-        ))}
-    </g>
-)
+}) => {
+    let xOffset=-20,
+        width=40
+    if(slices.length > 100){
+        xOffset=-1
+        width=10
+    }
+    return(
+        <g>
+            {slices.map(slice => (
+                <LineSlicesItem
+                    key={slice.id}
+                    slice={slice}
+                    height={height}
+                    xOffset={xOffset}
+                    width={width}
+                    showTooltip={showTooltip}
+                    hideTooltip={hideTooltip}
+                    theme={theme}
+                    tooltipFormat={tooltipFormat}
+                    tooltip={tooltip}
+                />
+            ))}
+        </g>
+    )
+}
 
 LineSlices.propTypes = {
     slices: PropTypes.arrayOf(
