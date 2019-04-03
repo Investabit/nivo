@@ -26,6 +26,7 @@ const LineSlices = ({
                 key={slice.id}
                 slice={slice}
                 height={height}
+                points={slices.length}
                 showTooltip={showTooltip}
                 hideTooltip={hideTooltip}
                 theme={theme}

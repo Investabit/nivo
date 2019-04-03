@@ -25,35 +25,42 @@ Chip.propTypes = {
     color: PropTypes.string.isRequired,
 }
 
-const LineSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover }) => (
-    <g transform={`translate(${slice.x}, 0)`}>
-        {isHover && (
-            <line
-                x1={0}
-                x2={0}
-                y1={0}
-                y2={height}
-                stroke="#000"
-                strokeOpacity={0.35}
-                strokeWidth={1}
+const LineSlicesItem = ({ slice, height, points, showTooltip, hideTooltip, isHover, offset=-20, width=40 }) => {
+    if(points > 100) {
+        offset = -1
+        width = 10
+    }
+    return(
+        <g transform={`translate(${slice.x}, 0)`}>
+            {isHover && (
+                <line
+                    x1={0}
+                    x2={0}
+                    y1={0}
+                    y2={height}
+                    stroke="#000"
+                    strokeOpacity={0.35}
+                    strokeWidth={1}
+                />
+            )}
+            <rect
+                x={offset}
+                width={width}
+                height={height}
+                fill="#F00"
+                fillOpacity={0}
+                onMouseEnter={showTooltip}
+                onMouseMove={showTooltip}
+                onMouseLeave={hideTooltip}
             />
-        )}
-        <rect
-            x={-20}
-            width={40}
-            height={height}
-            fill="#F00"
-            fillOpacity={0}
-            onMouseEnter={showTooltip}
-            onMouseMove={showTooltip}
-            onMouseLeave={hideTooltip}
-        />
-    </g>
-)
+        </g>
+    )
+}
 
 LineSlicesItem.propTypes = {
     slice: PropTypes.object.isRequired,
     height: PropTypes.number.isRequired,
+    points: PropTypes.number.isRequired,
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
     isHover: PropTypes.bool.isRequired,
